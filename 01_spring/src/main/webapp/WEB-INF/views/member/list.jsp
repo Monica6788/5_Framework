@@ -1,0 +1,53 @@
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>memberList</title>
+	</head>	
+	<body>
+		
+		<h1>회원 목록</h1>
+		<p>
+			<a href="/insertForm.html">회원 등록</a>
+		</p>
+<!--		<p>스크립틀릿: <%= request.getAttribute("message") %></p>-->
+		<!--<p>${memberList}</p>-->
+		<table border="1">
+			<thead>
+				<tr>
+					<th>No</th>
+					<th>ID</th>
+					<th>이름</th>
+					<th>이메일</th>
+					<th>나이</th>
+					<th>삭제</th>
+				</tr>
+			</thead>
+			
+			<tbody>
+				<!-- JSTL 사용-->
+				<!-- 조건문(c:if)을 사용하여 리스트가 비어 있는 경우(test 속성) 
+					"등록된 회원이 없습니다." 출력 -->
+				<c:if test="${memberList == null}">
+					<td colspan="5">등록된 회원이 없습니다.</td>
+				</c:if>
+				<!-- 반복문(c:forEach)을 사용하여 조회된 결과(items 속성) 개수만큼
+					한 행씩 데이터를 출력 -->
+				<c:forEach var="member" items="${memberList}" varStatus="status">
+					<tr>
+						<td>${status.count}</td>
+						<td>${member.id}</td>
+						<td>${member.name}</td>
+						<td>${member.email}</td>
+						<td>${member.age}</td>
+						<td><a href="/member/delete/${member.id}">삭제</a></td>
+					</tr>
+				</c:forEach>	
+			</tbody>
+		</table>
+		
+	</body>
+
+</html>
