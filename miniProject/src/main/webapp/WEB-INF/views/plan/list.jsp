@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/3dd9964fc0.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/style.css">
 </head>
 <body>
     <!-- header area: logo, serach bar, logout/delete account buttons -->
@@ -39,7 +39,7 @@
         <nav class="menu">
             <ul class="user-info">
                 <div class="img-block">
-                    <img src="./pics/profile_img.png" alt="프로필 이미지">
+                    <img src="${pageContext.request.contextPath}/pics/profile_img.png" alt="프로필 이미지">
                     <p class="update-delete">
                         <a href="#">수정</a>
                         <a href="#">삭제</a>
@@ -65,36 +65,39 @@
             <article class="blocks">
                 <c:forEach var="p" items="${planList}">
                     <c:choose>
-                        <c:when test="${planType == 1}">
+                        <c:when test="${p.planType == 1}">
                             <div class="block" id="anniversary">
-                                <h3>${planTitle}</h3>
-                                <h4>${planDate}</h4>
+                                <h3>${p.planTitle}</h3>
+                                <h4>${p.planDate}</h4>
                                 <div class="update-delete">
                                     <a href="#">수정</a>
                                     <a href="#">삭제</a>
+                                    <button class="badge-onoff">중요</button>
                                 </div>
                             </div>
                         </c:when>
 
-                        <c:when test="${planType == 2}">
-                            <div class="block" id="anniversary">
-                                <h3>${planTitle}</h3>
-                                <h4>${planDate} ~ ${planDue}</h4>
+                        <c:when test="${p.planType == 2}">
+                            <div class="block" id="period">
+                                <h3>${p.planTitle}</h3>
+                                <h4>${p.planDate} ~ ${p.planDue}</h4>
                                 <div class="update-delete">
                                     <a href="#">수정</a>
                                     <a href="#">삭제</a>
+                                    <button class="badge-onoff">중요</button>
                                 </div>
                             </div>
                         </c:when>
 
-                        <c:when test="${planType == 3}">
-                            <div class="block" id="anniversary">
-                                <h3>${planTitle}</h3>
-                                <h4>${planDate} &nbsp; ${planTime}</h4>
+                        <c:when test="${p.planType == 3}">
+                            <div class="block" id="oneday">
+                                <h3>${p.planTitle}</h3>
+                                <h4>${p.planDate} &nbsp; ${p.planTime}</h4>
                                 <div class="update-delete">
                                     <a href="#">수정</a>
                                     <a href="#">삭제</a>
                                 </div>
+                                <button class="badge-onoff">중요</button>
                             </div>
                         </c:when>
 
@@ -110,7 +113,8 @@
                     </div>
                     <span class="badge">중요!</span>
                 </div> 
-                TODO: badge는 어떡하지... -->
+                TODO: badge는 어떡하지... 
+				마우스 호버 시 중요 버튼 띄우고 onclick 이벤트 등록해서 클릭하면 배지 띄우게 하기? -->
                 
             </article>
         </section>
