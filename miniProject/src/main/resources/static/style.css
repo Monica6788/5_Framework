@@ -256,7 +256,11 @@ main section {
     cursor: pointer;
 }
 
-.blocks .block .badge-onoff {
+.blocks .block .badge {
+    display: none;
+}
+
+.blocks .block .badge.active{
     position: absolute;
     top: 8px;
     right: 8px;

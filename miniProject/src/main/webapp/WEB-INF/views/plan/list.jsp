@@ -72,7 +72,10 @@
                                 <div class="update-delete">
                                     <a href="#">수정</a>
                                     <a href="#">삭제</a>
-                                    <button class="badge-onoff">중요</button>
+                                </div>
+                                <div class="important">
+                                    <a href="#">[중요]</a>
+                                    <span class="badge">중요</span>
                                 </div>
                             </div>
                         </c:when>
@@ -84,7 +87,10 @@
                                 <div class="update-delete">
                                     <a href="#">수정</a>
                                     <a href="#">삭제</a>
-                                    <button class="badge-onoff">중요</button>
+                                </div>
+                                <div class="important">
+                                    <a href="#">[중요]</a>
+                                    <span class="badge">중요</span>
                                 </div>
                             </div>
                         </c:when>
@@ -97,24 +103,15 @@
                                     <a href="#">수정</a>
                                     <a href="#">삭제</a>
                                 </div>
-                                <button class="badge-onoff">중요</button>
+                                <div class="important">
+                                    <a href="#">[중요]</a>
+                                    <span class="badge">중요</span>
+                                </div>
                             </div>
                         </c:when>
 
                     </c:choose>    
                 </c:forEach>
-
-                <!-- <div class="block" id="anniversary">
-                    <h3>집사 생일</h3>
-                    <h4>2026-08-03</h4>
-                    <div class="update-delete">
-                        <a href="#">수정</a>
-                        <a href="#">삭제</a>
-                    </div>
-                    <span class="badge">중요!</span>
-                </div> 
-                TODO: badge는 어떡하지... 
-				마우스 호버 시 중요 버튼 띄우고 onclick 이벤트 등록해서 클릭하면 배지 띄우게 하기? -->
                 
             </article>
         </section>
