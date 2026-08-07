@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -75,8 +76,22 @@ public class MemberController {
 		if(result > 0) {
 			session.setAttribute("message", "회원 가입 성공!");
 		} else { session.setAttribute("message", "회원 가입 실패..."); }
+	
+		return "redirect:/member/list";
+	}
+	
+	@GetMapping("/update/{id}")
+	public String updateForm(@PathVariable int id, Model model) {
+		MemberDTO member = mapper.findById(id);
 		
+		model.addAttribute("member", member);
 		
+		return "/member/updateForm";
+	}
+	
+	@PostMapping("/update")
+	public String update(@ModelAttribute MemberDTO member) {
+		mapper.update(member);
 		
 		return "redirect:/member/list";
 	}

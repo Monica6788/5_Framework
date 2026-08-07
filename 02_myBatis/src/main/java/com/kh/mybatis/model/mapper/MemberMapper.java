@@ -21,4 +21,10 @@ public interface MemberMapper {
 	// 회원 등록(데이터 추가/INSERT)
 	int insert(MemberDTO member);
 	
+	MemberDTO findById(int id);
+	
+	int update(MemberDTO member);
+	
+	int delete(int id);
+		
 }

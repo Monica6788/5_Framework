@@ -24,6 +24,8 @@
 				<th>이름</th>
 				<th>이메일</th>
 				<th>나이</th>
+				<th>수정</th>
+				<th>삭제</th>
 			</tr>
 		</thaed>
 		<tbody>
@@ -37,6 +39,8 @@
 					<td>${member.name}</td>			
 					<td>${member.email}</td>
 					<td>${member.age}</td>
+					<td><a href="/member/update/${member.id}">수정</a></td>
+					<td><a href="/member/delete/${member.id}">삭제</a></td>
 				</tr>
 			</c:forEach>
 		</tbody>

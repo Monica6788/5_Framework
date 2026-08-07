@@ -18,8 +18,21 @@
 	</select>
 	<!-- resultType은 보통 셀렉트 태그 안에만 작성! -->
 	
-	<insert id="insert">
+	<insert id="insert" parameterType="MemberDTO">
 		INSERT INTO member (id, name, email, age)
 		VALUES (SEQ_MEMBER_ID.NEXTVAL, #{name}, #{email}, #{age})
 	</insert>
+	
+	<select id="findById" resultType="MemberDTO">
+		SELECT id, name, email, age FROM member WHERE id = #{id}
+	</select>
+	
+	<update id="update">
+		UPDATE member SET name = #{name}, email = #{email}, age =#{age} WHERE id = #{id} 
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM member WHERE id = #{id}
+	</delete>
+	
 </mapper>
