@@ -75,6 +75,13 @@
 		    <scope>compile</scope>
 		</dependency>
 		
+		<!-- 내장 톰캣 jasper -->
+		<!-- Source: https://mvnrepository.com/artifact/org.apache.tomcat-embed-jasper-->
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-jasper</artifactId>
+		</dependency>
+		
 	</dependencies>
 
 	<build>
