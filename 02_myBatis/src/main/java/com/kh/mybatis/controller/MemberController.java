@@ -1,6 +1,5 @@
 package com.kh.mybatis.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -13,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.kh.mybatis.model.dto.MemberDTO;
 import com.kh.mybatis.model.mapper.MemberMapper;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
 @Controller	// RestController는 JSON으로 직접 응답할 때
@@ -43,6 +43,17 @@ public class MemberController {
 	}
 	
 	/**
+	 * 회원 가입 페이지
+	 * URL: [GET] /member/insert
+	 * Param: x
+	 * 응답: 회원 가입 페이지(/WERb-INF/views/member/insertForm.jsp) 포워딩
+	 */
+	@GetMapping("/insert")
+	public String insert() {
+		return "member/insertForm";
+	}
+	
+	/**
 	 * 회원 추가
 	 * URL: [POST] /member/insert
 	 * Param: name(String), email(String), age(int)
@@ -54,7 +65,17 @@ public class MemberController {
 //			String name, String email, int age
 			// 프로젝트 할 때는 요청 파라미터가 n개 이상이면 DTO를 사용하기로 약속하는 것이 좋음
 			// n은 팀원들과 협의 후 결정...
-			@ModelAttribute MemberDTO member) {
+			@ModelAttribute MemberDTO member, HttpSession session) {
+		int result = mapper.insert(member);
+		/*	추가 성공: "회원 가입 성공!" 메시지 저장
+		 * 	추가 실패: "회원 가입 실패..." 메시지 저장
+		 * 	리다이렉트이므로 재요청이 들어가고 request에 담으면 리다이렉트 되면서 저장된 메시지 날림
+		 * 	=> session 영역에 저장 (HttpSession)
+		 */
+		if(result > 0) {
+			session.setAttribute("message", "회원 가입 성공!");
+		} else { session.setAttribute("message", "회원 가입 실패..."); }
+		
 		
 		
 		return "redirect:/member/list";

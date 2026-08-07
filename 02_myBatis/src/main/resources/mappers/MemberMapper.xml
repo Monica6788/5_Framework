@@ -16,4 +16,10 @@
 	<select id="findAll" resultType="MemberDTO">
 		SELECT id, name, email, age FROM member ORDER BY id
 	</select>
+	<!-- resultType은 보통 셀렉트 태그 안에만 작성! -->
+	
+	<insert id="insert">
+		INSERT INTO member (id, name, email, age)
+		VALUES (SEQ_MEMBER_ID.NEXTVAL, #{name}, #{email}, #{age})
+	</insert>
 </mapper>

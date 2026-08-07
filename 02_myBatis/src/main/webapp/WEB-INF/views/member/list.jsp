@@ -8,6 +8,13 @@
 	<title>MyBatis Practice</title>
 </head>
 <body>
+	<%-- message 값이 있을 경우 alert 메시지 내용 출력 --%>
+	<c:if test="${message != null}">
+		<script>
+			alert("${message}");
+			<c:remove var="message" />
+		</script>
+	</c:if>
 	<h1>회원 목록</h1>
 	
 	<table border="1">
@@ -33,7 +40,6 @@
 				</tr>
 			</c:forEach>
 		</tbody>
-	
 	</table>
 </body>
 </html>
