@@ -8,10 +8,10 @@
 		<version>4.1.0</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>project</groupId>
-	<artifactId>myPlan</artifactId>
+	<groupId>com.kh</groupId>
+	<artifactId>community</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>miniProject</name>
+	<name>03_community</name>
 	<description/>
 	<url/>
 	<licenses>
@@ -32,9 +32,19 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webmvc</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+			<optional>true</optional>
+		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
@@ -42,23 +52,22 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webmvc-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<scope>runtime</scope>
-			<optional>true</optional>
-		</dependency>
 
-		<!-- ojdbc 연결 -->
-		<!-- Source: https://mvnrepository.com/artifact/com.oracle.database.jdbc/ojdbc11 -->
+		<!-- 내장 톰캣 jasper -->
+		<!-- Source: https://mvnrepository.com/artifact/org.apache.tomcat-embed-jasper-->
 		<dependency>
-		    <groupId>com.oracle.database.jdbc</groupId>
-    		<artifactId>ojdbc11</artifactId>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-jasper</artifactId>
 		</dependency>
+		
 		<!-- JSTL -->
 		<!-- Source: https://mvnrepository.com/artifact/jakarta.servlet.jsp.jstl/jakarta.servlet.jsp.jstl-api -->
 		<dependency>
@@ -73,6 +82,13 @@
 		    <artifactId>jakarta.servlet.jsp.jstl</artifactId>
 		</dependency>
 		
+		<!-- ojdbc 연결 -->
+		<!-- Source: https://mvnrepository.com/artifact/com.oracle.database.jdbc/ojdbc11 -->
+		<dependency>
+		    <groupId>com.oracle.database.jdbc</groupId>
+    		<artifactId>ojdbc11</artifactId>
+		</dependency>
+
 		<!-- MyBatis -->
 		<!-- Source: https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter -->
 		<dependency>
@@ -82,13 +98,6 @@
 		    <scope>compile</scope>
 		</dependency>
 		
-		<!-- 내장 톰캣 jasper -->
-		<!-- Source: https://mvnrepository.com/artifact/org.apache.tomcat-embed-jasper-->
-		<dependency>
-			<groupId>org.apache.tomcat.embed</groupId>
-			<artifactId>tomcat-embed-jasper</artifactId>
-		</dependency>
-
 	</dependencies>
 
 	<build>
@@ -96,14 +105,6 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<excludes>
-						<exclude>
-							<groupId>org.projectlombok</groupId>
-							<artifactId>lombok</artifactId>
-						</exclude>
-					</excludes>
-				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="PlanMapper">
+	<select id="findAll" resultType="PlanDTO">
+		SELECT plan_id, plan_type, plan_title, plan_date, plan_due, plan_time, user_id
+		FROM plan
+		ORDER BY plan_id
+	</select>
+	
+	<select id="findById" resultType="PlanDTO">
+		SELECT plan_id, plan_type, plan_title, plan_date, plan_due, plan_time, user_id
+		FROM plan
+		WHERE plan_id = #{planId}
+	</select>
+	
+	<insert id="insert" parameterType="PlanDTO">
+		INSERT INTO plan (plan_id, plan_type, plan_title, plan_date)
+		VALUES (SEQ_PLAN_ID.NEXTVAL, 1, #{planTitle}, #{planDate})
+	</insert>
+	
+	<insert id="insert2" parameterType="Plan2DTO">
+		INSERT INTO plan (plan_id, plan_type, plan_title, plan_date, plan_due)
+		VALUES (SEQ_PLAN_ID.NEXTVAL, 1, #{planTitle}, #{planDate}, #{planDue})
+	</insert>	
+	
+	
+
+</mapper>
