@@ -10,15 +10,17 @@ import project.model.PlanDTO;
 
 @Mapper
 public interface PlanMapper {
-	List<PlanDTO> findAll();
 	
-	PlanDTO findById();
+	List<PlanDTO> findAll();
+	PlanDTO findById(int planId);
 	
 	int insert1(PlanDTO plan);
 	int insert2(Plan2DTO plan);
 	int insert3(Plan3DTO plan);
 	
-	int update(PlanDTO plan);
+	int update1(PlanDTO plan);
+	int update2(Plan2DTO plan);
+	int update3(Plan3DTO plan);
 	
 	int deleteById(int id);
 	

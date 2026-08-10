@@ -2,7 +2,8 @@
 <!DOCTYPE mapper
  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
-<mapper namespace="PlanMapper">
+<mapper namespace="project.model.mapper.PlanMapper">
+
 	<select id="findAll" resultType="PlanDTO">
 		SELECT plan_id, plan_type, plan_title, plan_date, plan_due, plan_time, user_id
 		FROM plan
@@ -15,16 +16,44 @@
 		WHERE plan_id = #{planId}
 	</select>
 	
-	<insert id="insert" parameterType="PlanDTO">
+	
+	<insert id="insert1" parameterType="PlanDTO">
 		INSERT INTO plan (plan_id, plan_type, plan_title, plan_date)
 		VALUES (SEQ_PLAN_ID.NEXTVAL, 1, #{planTitle}, #{planDate})
 	</insert>
 	
 	<insert id="insert2" parameterType="Plan2DTO">
 		INSERT INTO plan (plan_id, plan_type, plan_title, plan_date, plan_due)
-		VALUES (SEQ_PLAN_ID.NEXTVAL, 1, #{planTitle}, #{planDate}, #{planDue})
-	</insert>	
+		VALUES (SEQ_PLAN_ID.NEXTVAL, 2, #{planTitle}, #{planDate}, #{planDue})
+	</insert>
+
+	<insert id="insert3" parameterType="Plan3DTO">
+		INSERT INTO plan (plan_id, plan_type, plan_title, plan_date, plan_time)
+		VALUES (SEQ_PLAN_ID.NEXTVAL, 3, #{planTitle}, #{planDate}, #{planTime})
+	</insert>
 	
 	
+	<update id="update1" parameterType="PlanDTO">
+		UPDATE plan 
+		SET plan_title = #{planTitle}, plan_date = #{planDate}
+		WHERE plan_id = #{planId} 
+	</update>
+	
+	<update id="update2" parameterType="Plan2DTO">
+		UPDATE plan 
+		SET plan_title = #{planTitle}, plan_date = #{planDate}, plan_due = #{planDue}
+		WHERE plan_id = #{planId} 
+	</update>
+	
+	<update id="update3" parameterType="Plan3DTO">
+		UPDATE plan 
+		SET plan_title = #{planTitle}, plan_date = #{planDate}, plan_time = #{planTime}
+		WHERE plan_id = #{planId} 
+	</update>
+	
+	
+	<delete id="deleteById">
+		DELETE FROM plan WHERE plan_id = #{planId}
+	</delete>
 
 </mapper>

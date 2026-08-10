@@ -12,6 +12,8 @@ public class PlanDTO {
 	private int planType;
 	private String planTitle;
 	private String planDate;
+	private String planDue;
+	private String planTime;
 	
 	public PlanDTO(String planTitle, String planDate) {
 		super();

@@ -28,7 +28,7 @@
 
         <!-- logout/delete account buttons -->
         <div class="header-links">
-            <a href="#">로그아웃</a>
+            <a href="/">로그아웃</a>
             <a href="#">회원탈퇴</a>
         </div>
     </header>
@@ -49,12 +49,15 @@
                 <li>user001@gmail.com</li>
             </ul>
             <ul class="add-plan">
-                <li>
-                    <span>일정 추가</span><a href="#">+</a>
+<!--                <li>
+                    <span>기념일 추가</span><a href="insert">+</a>
                 </li>
                 <li>
-                    <span>기념일 추가</span><a href="#">+</a>
-                </li>
+                    <span>기간일정 추가</span><a href="insert">+</a>
+                </li>-->
+				<li>
+				    <span>일정 추가</span><a href="insert">+</a>
+				</li>
             </ul>
             <ul class="file-save-load">
                 <li><a href="#">백업파일 저장하기</a></li>
@@ -70,12 +73,8 @@
                                 <h3>${p.planTitle}</h3>
                                 <h4>${p.planDate}</h4>
                                 <div class="update-delete">
-                                    <a href="#">수정</a>
-                                    <a href="#">삭제</a>
-                                </div>
-                                <div class="important">
-                                    <a href="#">[중요]</a>
-                                    <span class="badge">중요</span>
+                                    <a href="update?planId=${p.planId}&planType=${p.planType}">수정</a>
+                                    <a href="delete?planId=${p.planId}">삭제</a>
                                 </div>
                             </div>
                         </c:when>
@@ -85,12 +84,8 @@
                                 <h3>${p.planTitle}</h3>
                                 <h4>${p.planDate} ~ ${p.planDue}</h4>
                                 <div class="update-delete">
-                                    <a href="#">수정</a>
-                                    <a href="#">삭제</a>
-                                </div>
-                                <div class="important">
-                                    <a href="#">[중요]</a>
-                                    <span class="badge">중요</span>
+                                    <a href="update?planId=${p.planId}&planType=${p.planType}">수정</a>
+                                    <a href="delete?planId=${p.planId}">삭제</a>
                                 </div>
                             </div>
                         </c:when>
@@ -98,14 +93,10 @@
                         <c:when test="${p.planType == 3}">
                             <div class="block" id="oneday">
                                 <h3>${p.planTitle}</h3>
-                                <h4>${p.planDate} &nbsp; ${p.planTime}</h4>
+                                <h4>${p.planDate}&nbsp; ${p.planTime}</h4>
                                 <div class="update-delete">
-                                    <a href="#">수정</a>
-                                    <a href="#">삭제</a>
-                                </div>
-                                <div class="important">
-                                    <a href="#">[중요]</a>
-                                    <span class="badge">중요</span>
+                                    <a href="update?planId=${p.planId}&planType=${p.planType}">수정</a>
+                                    <a href="delete?planId=${p.planId}">삭제</a>
                                 </div>
                             </div>
                         </c:when>
@@ -137,6 +128,5 @@
         </p>
     </footer>
 
-    <script src="main.js"></script>
 </body>
 </html>

@@ -46,6 +46,40 @@ button {
     cursor: pointer;
 }
 
+/*---------------------------------------- 로그인창 ------------------------------------------*/
+.box {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-box {
+    width: 400px;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid midnightblue;
+    border-radius: 32px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+.login-logo {
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: midnightblue;
+    margin-bottom: 16px;
+}
+
+.login, .join {
+    display: inline-block;
+    border-radius: 6px;
+    padding: 4px 6px;
+    margin-top: 8px;
+}
+
 /*------------------------- header area ------------------------*/
 header {
     display: flex;
