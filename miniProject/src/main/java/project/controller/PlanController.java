@@ -103,34 +103,41 @@ public class PlanController {
 		
 		switch(planType) {
 		case 1 :
-			page = "/WEB-INF/views/update1.jsp";
+			page = "plan/update1";
 			break;
 		case 2 :
-			page = "/WEB-INF/views/update2.jsp";
+			page = "plan/update2";
 			break;
 		case 3 :
-			page = "/WEB-INF/views/update3.jsp";
+			page = "plan/update3";
 			break;
 		}
 		
 		return page;
+	} //
+	
+	@PostMapping("/update/1")
+	public String updatePlan1(@ModelAttribute PlanDTO plan) {
+		int result = mapper.update1(plan);
+
+		if (result > 0) { System.out.println(result + "행 수정됨."); }
+		
+		return "redirect:/plan/list";
 	}
 	
-	@PostMapping("/update")
-	public String updatePlan(@ModelAttribute PlanDTO plan) {
-		int planType = plan.getPlanType();
-		int result = 0;
-		switch(planType) {
-		case 1 :
-			result = mapper.update1(plan);
-			break;
-		case 2 :
-			result = mapper.update2((Plan2DTO)plan);
-			break;
-		case 3 :
-			result = mapper.update3((Plan3DTO)plan);
-			break;
-		}
+	@PostMapping("/update/2")
+	public String updatePlan2(@ModelAttribute Plan2DTO plan) {
+		int result = mapper.update2(plan);
+
+		if (result > 0) { System.out.println(result + "행 수정됨."); }
+		
+		return "redirect:/plan/list";
+	}
+	
+	@PostMapping("/update/3")
+	public String updatePlan3(@ModelAttribute Plan3DTO plan) {
+		int result = mapper.update3(plan);
+
 		if (result > 0) { System.out.println(result + "행 수정됨."); }
 		
 		return "redirect:/plan/list";

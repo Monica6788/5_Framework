@@ -6,13 +6,16 @@
 <head>
 <meta charset="UTF-8">
 <title>일정 추가</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/form.css">
 </head>
 <body>
 	<form action="insertForm" method="get">
-		<p>타입을 선택하세요.</p>
-		<label><input type="radio" name="planType" value="1" checked> 기념일</label>
-		<label><input type="radio" name="planType" value="2"> 기간</label>
-		<label><input type="radio" name="planType" value="3"> 하루</label>
+		<h3>타입을 선택하세요.</h3>
+		<div class="radio-box">
+			<label><input type="radio" name="planType" value="1" checked> 기념일</label>
+			<label><input type="radio" name="planType" value="2"> 기간</label>
+			<label><input type="radio" name="planType" value="3"> 하루</label>
+		</div>
 		<br>
 		<button>일정 추가</button>
 	</form>
