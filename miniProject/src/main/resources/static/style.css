@@ -294,8 +294,25 @@ main section {
     display: none;
 }
 
+.blocks .block:hover .badge {
+    display:block;
+    background-color: aliceblue;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    padding: 2px 4px;
+    border-radius: 8px;
+    color: steelblue;
+    font-weight: 800;
+}
+
+.blocks .block:hover .badge:hover {
+    cursor: pointer;
+}
+
 .blocks .block .badge.active{
     position: absolute;
+    display: block;
     top: 8px;
     right: 8px;
     background-color: blue;

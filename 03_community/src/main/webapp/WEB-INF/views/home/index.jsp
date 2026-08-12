@@ -7,7 +7,7 @@
 	<p class="hero-desc">자유롭게 글을 쓰고 이야기를 나눠보세요.</p>
 	<div class="hero-actions">
 		<a class="btn">게시글 목록</a>
-		<a class="btn">회원가입</a>
+		<a href="/member/login" class="btn">로그인</a>
 	</div>
 </section>
 

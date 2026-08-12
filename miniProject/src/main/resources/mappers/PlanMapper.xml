@@ -16,6 +16,12 @@
 		WHERE plan_id = #{planId}
 	</select>
 	
+	<select id="findByKeyword" resultType="PlanDTO">
+		SELECT plan_id, plan_type, plan_title, plan_date, plan_due, plan_time, user_id
+		FROM plan
+		WHERE plan_title LIKE '%' || #{keyword} || '%'
+	</select>
+	
 	
 	<insert id="insert1" parameterType="PlanDTO">
 		INSERT INTO plan (plan_id, plan_type, plan_title, plan_date)

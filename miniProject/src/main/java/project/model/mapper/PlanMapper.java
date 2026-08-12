@@ -13,6 +13,7 @@ public interface PlanMapper {
 	
 	List<PlanDTO> findAll();
 	PlanDTO findById(int planId);
+	List<PlanDTO> findByKeyword(String keyword);
 	
 	int insert1(PlanDTO plan);
 	int insert2(Plan2DTO plan);

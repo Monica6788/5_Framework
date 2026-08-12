@@ -30,6 +30,26 @@ public class PlanController {
 		return "plan/list";
 	}
 	
+	@GetMapping("/result")
+	public String search(@RequestParam(required=false) String keyword, Model model) {
+		String page = "";
+		List<PlanDTO> planList;
+		String message = "";
+		
+		if (keyword == null || keyword.trim().isEmpty()) {
+			planList  = mapper.findAll(); 
+			page = "redirect:/plan/list";
+			message = "검색 결과가 없습니다.";
+		} else {
+			planList = mapper.findByKeyword(keyword);
+			page = "plan/result";
+			message = planList.size() + "건 검색됨";
+		}
+		model.addAttribute("planList", planList);
+		model.addAttribute("message", message);
+		return page;
+	}
+	
 	@GetMapping("/insert")
 	public String insert() {
 		return "plan/insert";
@@ -49,7 +69,6 @@ public class PlanController {
 			page = "plan/insert3";
 			break;
 		}
-		//
 		
 		return page;
 	}
