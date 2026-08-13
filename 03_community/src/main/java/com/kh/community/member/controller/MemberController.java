@@ -8,9 +8,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kh.community.member.model.dto.ApiResponse;
 import com.kh.community.member.model.dto.MemberDTO;
 import com.kh.community.member.service.MemberService;
 
@@ -66,4 +68,33 @@ public class MemberController {
 		return "redirect:/member/login";
 	}
 	
+	// @ResponseBody: 응답 본문에 데이터를 담아 처리
+	/*
+	 * URL: [GET] /member/checkId?memberId=XXX
+	 */
+	@ResponseBody
+	@GetMapping("/checkId")
+	public ApiResponse<Boolean> checkId(String memberId) {
+		boolean isDuplicate = service.isMemberIdCheck(memberId);
+		
+		String message = isDuplicate ? "이미 사용 중인 아이디입니다." : "사용 가능한 아이디입니다.";
+		// 응답 데이터용 DTO를 추가해야 함
+		
+		return ApiResponse.success(message, isDuplicate);
+	}
+	
+	// login.jsp를 참고하여 로그인 요청을 받을 메서드 추가
+	@PostMapping("/login")
+	public String login(String memberId, String memberPwd,
+						HttpSession session, RedirectAttributes redirectAttr) {
+		try {
+			MemberDTO member = service.login(memberId, memberPwd);
+			// 로그인 성공: 세션에 로그인 정보 저장
+			session.setAttribute("loginMember", member);
+			return "redirect:/";
+		} catch (IllegalStateException e) {
+			redirectAttr.addFlashAttribute("error", e.getMessage());
+			return "redirect:/member/login";
+		}
+	}
 }

@@ -18,7 +18,7 @@ public interface MemberService {
 	void join(MemberDTO member, MultipartFile profileImage) throws IOException;
 	
 	// 아이디 중복체크
-	boolean insMemberIdCheck(String memberId);
+	boolean isMemberIdCheck(String memberId);
 	
 	// 로그인 (DB에서 정보를 확인하고 해당 회원의 정보를 반환할 거라서 MemberDTO 반환)
 	MemberDTO login(String memberId, String memberPwd);

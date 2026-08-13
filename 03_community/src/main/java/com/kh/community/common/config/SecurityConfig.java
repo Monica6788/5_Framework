@@ -5,6 +5,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 /*
@@ -31,7 +33,7 @@ public class SecurityConfig {
 	/*
 	 * SecurityFilterChain: HTTP 요청에 적용할 보안 규칙을 정의하는 객체(Bean)
 	 * 
-	 * 스피링 시큐리티는 요청이 들어오면 여러 필터를 순서대로 거치게 함
+	 * 스프링 시큐리티는 요청이 들어오면 여러 필터를 순서대로 거치게 함
 	 * SecurityFilterChain은 그 필터들의 집합(묶음)이며, 여기서 각 필터의 동작 방식을 설정함
 	 */
 	@Bean	/* 해당 메서드가 반환하는 객체(SecurityFiterChain)를 스프링 빈으로 등록하는 어노테이션 */
@@ -60,5 +62,24 @@ public class SecurityConfig {
 		return http.build();
 		// build(): 위의 설정값을 가지고 객체를 생성해준다~
 		
+	}
+	
+	/**
+	 * BCryptPasswordEncoder: 비밀번호 단방향 해시 암호화
+	 * 
+	 *	- 단방향 암호화
+	 *	  : 암호화는 가능하나 복호화는 불가능한 방식
+	 *		DB에 비밀번호 평문을 저장하는 대신, 암호화된 해시값을 저장함.
+	 *		-> DB가 유출되어도 원본 비밀번호를 알 수 없음
+	 *
+	 *	- BCrypt 특징
+	 *	  : 같은 비밀번호라도 암호화 할 때마다 다른 해시값이 적용됨 (salt 적용)
+	 *		일치 여부를 확인할 때, passwordEncoder.matches(평문, 암호문) 방식으로 작성하여 검증
+	 */
+	
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+		// 서비스에 주입시킬 패스워드 인코더
 	}
 }

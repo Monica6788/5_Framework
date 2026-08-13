@@ -8,5 +8,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	INSERT INTO TB_MEMBER (MEMBER_ID, MEMBER_PWD, MEMBER_NAME, NICKNAME, EMAIL, PROFILE)
 	VALUES (#{memberId}, #{memberPwd}, #{memberName}, #{nickname}, #{email}, #{profile})
 	</insert>
+	
+	<select id="countByMemberId" parameterType="string" resultType="int">
+	select count(*) from TB_MEMBER where MEMBER_ID = #{memberId}
+	</select>
+	
+	<select id="selectByMemberId" parameterType="string" resultType="MemberDTO">
+	select MEMBER_ID,
+		   MEMBER_PWD,
+		   MEMBER_NAME,
+		   NICKNAME,
+		   EMAIL,
+		   PROFILE,
+		   to_char(CREATE_AT, 'YYYY-MM-DD HH24:MI') AS "CREATE_AT_STR"
+	from TB_MEMBER
+	where MEMBER_ID = #{memberId}
+	</select>
 
 </mapper>

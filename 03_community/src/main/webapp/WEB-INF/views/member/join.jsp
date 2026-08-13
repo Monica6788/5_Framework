@@ -72,4 +72,5 @@
 		</div>
 	</form>
 
-	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
+<script src="/js/member.js"></script>
+<jsp:include page="/WEB-INF/views/common/footer.jsp" />
