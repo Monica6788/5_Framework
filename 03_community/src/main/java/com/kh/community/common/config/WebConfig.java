@@ -1,9 +1,14 @@
 package com.kh.community.common.config;
 
+import java.io.File;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import com.kh.community.common.interceptor.LoginInterceptor;
 
 /*
  * WebMvcConfigurer: Spring MVC의 공통 설정 구현체(인터페이스)
@@ -20,12 +25,21 @@ public class WebConfig implements WebMvcConfigurer {
 	
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-//		String uploadDir = "uploads";
-//		String absoluteDir = new File(uploadDir).getAbsolutePath();
-//		registry.addResourceHandler("/uploads/**")
-//				.addResourceLocations("file:" + absoluteDir + File.separator);
+		String uploadDir = "uploads";
+		String absoluteDir = new File(uploadDir).getAbsolutePath();
+		registry.addResourceHandler("/uploads/**")
+				.addResourceLocations("file:" + absoluteDir + File.separator);
 //		이쯤에서 application.properties에 사용자정의로 파일경로를 설정했고, @Value()는 이후에 추가함
 
+	}
+
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+		// InterceptorRegistry는 스프링에게 
+		// "내가 만든 인터셉터를 어떤 URL에 적용하고 어떤 URL을 뺄 건지 설정하는 등록부"
+		registry.addInterceptor(new LoginInterceptor())	// 인터셉터 등록
+				.addPathPatterns("/member/mypage", "/member/withdraw");
+				// 로그인 해야만 접근 가능한 경로 나열
 	}
 
 }

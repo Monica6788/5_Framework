@@ -16,6 +16,7 @@ import com.kh.community.member.model.dto.ApiResponse;
 import com.kh.community.member.model.dto.MemberDTO;
 import com.kh.community.member.service.MemberService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 /**
@@ -39,6 +40,11 @@ public class MemberController {
 	@GetMapping("/login")
 	public String loginForm() {
 		return "member/login";
+	}
+	
+	@GetMapping("/mypage")
+	public String mypage() {
+		return "member/mypage";
 	}
 	
 	// ----------------------------
@@ -86,15 +92,51 @@ public class MemberController {
 	// login.jsp를 참고하여 로그인 요청을 받을 메서드 추가
 	@PostMapping("/login")
 	public String login(String memberId, String memberPwd,
+						@RequestParam(required=false) String redirectURL,
 						HttpSession session, RedirectAttributes redirectAttr) {
 		try {
 			MemberDTO member = service.login(memberId, memberPwd);
 			// 로그인 성공: 세션에 로그인 정보 저장
 			session.setAttribute("loginMember", member);
+			System.out.println(redirectURL);
+			
+			if (redirectURL != null && !redirectURL.isBlank()) {
+				return "redirect:" + redirectURL;
+			}
+			
 			return "redirect:/";
 		} catch (IllegalStateException e) {
 			redirectAttr.addFlashAttribute("error", e.getMessage());
 			return "redirect:/member/login";
 		}
+		
+		
+
 	}
+	
+	@GetMapping("/logout")
+	public String logout(HttpServletRequest request) {
+		// HttpServletRequest
+		// : 클라이언트가 서버로 보낸 모든 요청(Request) 정보를 담고 있는 객체
+		HttpSession session = request.getSession(false);
+		if (session != null) {
+			session.invalidate();	// 세션 자체를 만료시킴(모두 삭제)
+		}
+		return "redirect:/";
+	}
+	
+	@PostMapping("/withdraw")
+	public String withdraw(HttpSession session, RedirectAttributes redirectAttr) {
+		// 세션에 저장된 사용자 정보 추출
+		MemberDTO loginMember = (MemberDTO)session.getAttribute("loginMember");
+		
+		// 서비스에게 비즈니스 로직 요청
+		service.withdraw(loginMember.getMemberId());
+		
+		// 세션 영역에서 모든 데이터 삭제 (세션 만료시키기)
+		session.invalidate();
+
+		return "redirect:/";
+	}
+	
 }

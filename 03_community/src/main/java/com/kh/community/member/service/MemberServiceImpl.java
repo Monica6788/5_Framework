@@ -78,13 +78,25 @@ public class MemberServiceImpl implements MemberService {
 		}
 		
 		// 회원정보 반환
-		return null;
+		return member;
 	}
 
 	@Override
 	public void withdraw(String memberId) {
-		// TODO Auto-generated method stub
+		MemberDTO loginMember = mapper.selectByMemberId(memberId);
 		
+		// DB에서 해당 사용자 정보를 삭제 (Mapper)
+		int result = mapper.deleteMember(memberId);
+		
+		// 프로필 이미지가 있는 경우 서버에서 이미지 파일 삭제
+		String profile = loginMember.getProfile();	
+		// DB에 저장되어 있던 웹용 경로(상대경로)
+		if (profile != null) {
+			uploadUtil.delete(profile, profileUploadDir); 
+			// profileUploadDir: 서버 하드디스크의 실제 포더 위치(물리경로)
+		}
+		
+		System.out.println(result + "행 삭제됨.");
 	}
 	
 }
