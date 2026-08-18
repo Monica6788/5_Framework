@@ -10,5 +10,48 @@
 			LEFT JOIN TB_MEMBER M ON B.MEMBER_ID = M.MEMBER_ID
 		ORDER BY BOARD_ID DESC
 	</select>
+	
+	<insert id="insertBoard" parameterType="BoardDTO">
+	<!--
+		오라클에서 데이터 추가 시 사용된 시퀀스값 추출(조회) 방법
+		: selectKey 태그로 삽입 전 시퀀스를 읽어 DTO에 저장하는 방법
+	-->
+		<selectKey keyProperty="boardId" resultType="long" order="BEFORE">
+			select SEQ_BOARD.NEXTVAL from DUAL			
+		</selectKey>
+		insert into TB_BOARD (BOARD_ID, MEMBER_ID, CATEGORY, TITLE, CONTENT)
+		values (#{boardId}, #{memberId}, #{category}, #{title}, #{content})
+	</insert>
+	
+	<insert id="insertBoardImage" parameterType="BoardImageDTO">
+		insert into TB_BOARD_IMAGE (IMAGE_ID, BOARD_ID, ORIGINAL_NAME, SAVE_NAME, IMAGE_PATH, IMAGE_ORDER)
+		values (SEQ_BOARD_IMAGE.NEXTVAL, #{boardId}, #{originalName}, #{saveName}, #{imagePath}, #{imageOrder})
+	</insert>
+	
+	<update id="increaseViewCount" parameterType="long">
+		update TB_BOARD set COUNT = COUNT + 1 where BOARD_ID = #{boardId}
+	</update>
+	
+	<select id="selectBoardDetail" parameterType="long" resultType="BoardDTO">
+		select BOARD_ID, B.MEMBER_ID, CATEGORY, TITLE, COUNT, B.CREATE_AT,
+				UPDATE_AT, CONTENT, NICKNAME AS "WRITER_NICKNAME",
+				TO_CHAR(B.CREATE_AT, 'YYYY-MM-DD HH24:MI') AS "CREATE_AT_STR",
+				TO_CHAR(B.CREATE_AT, 'YYYY-MM-DD HH24:MI') AS "UPDATE_AT_STR"
+		from TB_BOARD B
+			left join TB_MEMBER M on B.MEMBER_ID = M.MEMBER_ID
+		where BOARD_ID = #{boardId}
+	</select>
+	
+	<select id="selectImagesByBoardId" parameterType="long" resultType="BoardImageDTO">
+		select IMAGE_ID, BOARD_ID, ORIGINAL_NAME, SAVE_NAME, IMAGE_PATH,
+				IMAGE_ORDER, CREATE_AT
+		from TB_BOARD_IMAGE
+		where BOARD_ID = #{boardId}
+		order by IMAGE_ORDER
+	</select>
+	
+	<delete id="deleteBoard" parameterType="long">
+		delete from TB_BOARD where BOARD_ID = #{boardId}
+	</delete>
 
 </mapper>

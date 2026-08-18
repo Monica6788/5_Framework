@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kh.community.common.SessionConst;
 import com.kh.community.member.model.dto.ApiResponse;
 import com.kh.community.member.model.dto.MemberDTO;
 import com.kh.community.member.service.MemberService;
@@ -97,7 +98,7 @@ public class MemberController {
 		try {
 			MemberDTO member = service.login(memberId, memberPwd);
 			// 로그인 성공: 세션에 로그인 정보 저장
-			session.setAttribute("loginMember", member);
+			session.setAttribute(SessionConst.LOGIN_MEMBER, member);
 			System.out.println(redirectURL);
 			
 			if (redirectURL != null && !redirectURL.isBlank()) {
@@ -128,7 +129,7 @@ public class MemberController {
 	@PostMapping("/withdraw")
 	public String withdraw(HttpSession session, RedirectAttributes redirectAttr) {
 		// 세션에 저장된 사용자 정보 추출
-		MemberDTO loginMember = (MemberDTO)session.getAttribute("loginMember");
+		MemberDTO loginMember = (MemberDTO)session.getAttribute(SessionConst.LOGIN_MEMBER);
 		
 		// 서비스에게 비즈니스 로직 요청
 		service.withdraw(loginMember.getMemberId());

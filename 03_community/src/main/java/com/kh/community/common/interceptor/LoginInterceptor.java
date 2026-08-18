@@ -5,6 +5,8 @@ import java.nio.charset.StandardCharsets;
 
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import com.kh.community.common.SessionConst;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -26,7 +28,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 		// session이 없을 때는 억지로 session을 생성하지 않도록 false 처리
 		
 		boolean isLoggedIn = session != null 
-						&& session.getAttribute("loginMember") != null;
+						&& session.getAttribute(SessionConst.LOGIN_MEMBER) != null;
 		
 		if (isLoggedIn) {
 			return true;	// 로그인 되어 있는 경우 컨트롤러가 그대로 진행하게 함

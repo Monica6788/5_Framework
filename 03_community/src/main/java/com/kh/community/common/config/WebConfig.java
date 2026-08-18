@@ -38,7 +38,9 @@ public class WebConfig implements WebMvcConfigurer {
 		// InterceptorRegistry는 스프링에게 
 		// "내가 만든 인터셉터를 어떤 URL에 적용하고 어떤 URL을 뺄 건지 설정하는 등록부"
 		registry.addInterceptor(new LoginInterceptor())	// 인터셉터 등록
-				.addPathPatterns("/member/mypage", "/member/withdraw");
+				.addPathPatterns("/member/mypage",
+								"/member/withdraw",
+								"/board/write");
 				// 로그인 해야만 접근 가능한 경로 나열
 	}
 
