@@ -3,7 +3,6 @@ package com.kh.community.board.controller;
 import java.io.IOException;
 import java.util.List;
 
-import org.springframework.security.web.authentication.session.ConcurrentSessionControlAuthenticationStrategy;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,18 +14,24 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.community.board.model.dto.BoardDTO;
+import com.kh.community.board.model.dto.CommentDTO;
 import com.kh.community.board.service.BoardService;
+import com.kh.community.board.service.CommentService;
 import com.kh.community.common.SessionConst;
 import com.kh.community.member.model.dto.MemberDTO;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
+/*
+ * "게시판" 관련 화면 이동, 폼 처리 등을 담당할 컨트롤러
+ */
 @Controller
 @RequestMapping("/board")
 @RequiredArgsConstructor
 public class BoardController {
 	private final BoardService service;
+	private final CommentService commentService;
 	
 	// -------------------- 화면 이동 요청 -----------------------
 	@GetMapping("/list")
@@ -46,7 +51,11 @@ public class BoardController {
 	public String detail(@PathVariable Long boardId, Model model,
 						HttpSession session) {
 		BoardDTO board = service.getBoardDetail(boardId);
+		// 댓글 
+		List<CommentDTO> comments = commentService.getComments(boardId);
+		
 		model.addAttribute("board", board);
+		model.addAttribute("comments", comments);
 		
 		// 로그인한 회원이 작성자인지 여부를 여기서 검증하여 넘김
 		MemberDTO loginMember = (MemberDTO)session.getAttribute(SessionConst.LOGIN_MEMBER);

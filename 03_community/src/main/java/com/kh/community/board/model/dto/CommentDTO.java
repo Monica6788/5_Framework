@@ -2,9 +2,17 @@ package com.kh.community.board.model.dto;
 
 import java.time.LocalDateTime;
 
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class CommentDTO {
 	// TB_COMMENT 기준으로 필드 정의
 	private Long commentId;
@@ -14,4 +22,8 @@ public class CommentDTO {
 	private LocalDateTime createAt;
 	
 	private String createAtStr;
+	private String writerNickname;	// 작성자 닉네임
+	
+	
+	
 }

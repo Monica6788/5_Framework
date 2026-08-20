@@ -42,7 +42,8 @@
 
 	<%-- 댓글 영역 --%>
     <section class="comment-section">
-        <h3 class="comment-section_title">댓글 7</h3>
+        <h3 class="comment-section_title">댓글 ${empty comments ? 0 : comments.size()}</h3>
+        <%-- 댓글 개수가 늘어나더라도 바로 적용되지 않음! 이 부분 바로바로 적용되게 하기 TODO --%>
         <ul class="comment-list" id="comment-list">
             <c:forEach var="comment" items="${comments}">
                 <li id="comment-${comment.commentId}">
@@ -72,7 +73,8 @@
     </section>
 
     <!--
-		댓글 목록을 표시하는 영역에서 사용할 템플릿으로 임시 저장한 UI (브라우저에서 해석되지 않음, 마크업 구조 보관용)
+		댓글 목록을 표시하는 영역에서 사용할 템플릿으로 임시 저장한 UI 
+        (브라우저에서 해석되지 않음, 마크업 구조 보관용)
     -->
     <template id="comment-template">
         <li>

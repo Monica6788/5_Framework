@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kh.community.board.model.mapper.CommentMapper">
+
+	<insert id="insertComment" parameterType="CommentDTO">
+		<!--
+		오라클에서 데이터를 추가할 때 사용된 시퀀스값을 추출(조회)하는 방법 
+		: selectKey 태그로 insert 쿼리문 실행 전에 시퀀스를 읽어 DTO에 저장!
+	-->
+		<selectKey
+			keyProperty="commentId" resultType="long" order="BEFORE">
+			select SEQ_COMMENT.NEXTVAL from dual
+		</selectKey> insert into
+		TB_COMMENT (COMMENT_ID, BOARD_ID, MEMBER_ID, CONTENT) values
+		(#{commentId}, #{boardId}, #{memberId}, #{content}) </insert>
+
+	<select id="selectCommentById" parameterType="long" resultType="CommentDTO">
+		select C.COMMENT_ID, C.BOARD_ID, C.MEMBER_ID, C.CONTENT, C.CREATE_AT,
+			to_char(C.CREATE_AT, 'YYYY-MM-DD HH24:MI') as "CREATE_AT_STR",
+			nvl(M.NICKNAME, '탈퇴한 회원') as "WRITER_NICKNAME" from TB_COMMENT C left join TB_MEMBER M
+		ON C.MEMBER_ID = M.MEMBER_ID <!-- 멤버 테이블에 데이터가 없더라도 코멘트 테이블에 값이 존재하면 불러오도록 외부조인 --> where C.COMMENT_ID = #{commentId} </select>
+
+	<delete id="deleteComment" parameterType="long">
+		delete from TB_COMMENT where COMMENT_ID = #{commentId}
+	</delete>
+
+	<select id="selectCommentsByBoardId" parameterType="long" resultType="CommentDTO">
+		select C.COMMENT_ID, C.BOARD_ID, C.MEMBER_ID, C.CONTENT, C.CREATE_AT,
+				to_char(C.CREATE_AT, 'YYYY-MM-DD HH24:MI') as "CREATE_AT_STR",
+				nvl(M.NICKNAME, '탈퇴한 회원') as "WRITER_NICKNAME"
+		from TB_COMMENT C
+			left join TB_MEMBER M ON C.MEMBER_ID = M.MEMBER_ID
+		where C.BOARD_ID = #{boardId}
+		order by C.COMMENT_ID
+	</select>
+
+</mapper>
