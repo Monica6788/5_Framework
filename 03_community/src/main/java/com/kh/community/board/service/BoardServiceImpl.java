@@ -9,9 +9,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.community.board.model.dto.BoardDTO;
 import com.kh.community.board.model.dto.BoardImageDTO;
+import com.kh.community.board.model.dto.BoardListResult;
+import com.kh.community.board.model.dto.BoardSearchCondition;
 import com.kh.community.board.model.mapper.BoardMapper;
 import com.kh.community.common.util.FileUploadUtil;
 import com.kh.community.common.util.SavedFile;
+import com.kh.community.member.model.dto.PageInfo;
 
 import lombok.RequiredArgsConstructor;
 
@@ -24,8 +27,15 @@ public class BoardServiceImpl implements BoardService {
 	private String boardUploadDir;
 
 	@Override
-	public List<BoardDTO> getBoardList() {
-		return mapper.selectBoardList();
+	public BoardListResult getBoardList(BoardSearchCondition condition) {
+		// 전체 게시글 수 조회
+		int totalCount = mapper.selectBoardListCount(condition);
+		
+		// 페이징 정보 저장 (PageInfo 객체 생성)
+		PageInfo pi = new PageInfo(condition.getPage(), condition.getSize(), totalCount);
+		condition.setOffset(pi.getOffset());
+		
+		return new BoardListResult(mapper.selectBoardList(condition), pi);
 	}
 
 	@Override

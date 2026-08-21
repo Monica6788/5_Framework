@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.community.board.model.dto.BoardDTO;
+import com.kh.community.board.model.dto.BoardListResult;
+import com.kh.community.board.model.dto.BoardSearchCondition;
 import com.kh.community.board.model.dto.CommentDTO;
 import com.kh.community.board.service.BoardService;
 import com.kh.community.board.service.CommentService;
@@ -35,9 +37,15 @@ public class BoardController {
 	
 	// -------------------- 화면 이동 요청 -----------------------
 	@GetMapping("/list")
-	public String boardList(Model model) {
+	public String boardList(Model model,
+				@ModelAttribute BoardSearchCondition condition) {
 		// DB에서 데이터를 조회하여 저장
-		model.addAttribute("boardList", service.getBoardList());
+		BoardListResult result = service.getBoardList(condition);
+		model.addAttribute("boardList", result.getBoardList());
+		model.addAttribute("pageInfo", result.getPageInfo());
+		
+		// 검색 상태를 유지하기 위해 condition 저장
+		model.addAttribute("condition", condition);
 		
 		return "board/list";
 	}

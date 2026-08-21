@@ -6,10 +6,12 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.community.board.model.dto.BoardDTO;
+import com.kh.community.board.model.dto.BoardListResult;
+import com.kh.community.board.model.dto.BoardSearchCondition;
 
 public interface BoardService {
 	// 게시글 목록 조회
-	List<BoardDTO> getBoardList();
+	BoardListResult getBoardList(BoardSearchCondition condition);
 	
 	// 게시글 추가
 	Long writeBoard(BoardDTO board, List<MultipartFile> images)
