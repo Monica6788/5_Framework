@@ -1,4 +1,4 @@
-package com.kh.community.member.model.dto;
+package com.kh.community.common.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

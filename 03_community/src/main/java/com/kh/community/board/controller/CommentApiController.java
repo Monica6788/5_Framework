@@ -13,7 +13,7 @@ import com.kh.community.board.model.dto.CommentDTO;
 import com.kh.community.board.model.dto.CommentRequest;
 import com.kh.community.board.service.CommentService;
 import com.kh.community.common.SessionConst;
-import com.kh.community.member.model.dto.ApiResponse;
+import com.kh.community.common.dto.ApiResponse;
 import com.kh.community.member.model.dto.MemberDTO;
 
 import jakarta.servlet.http.HttpSession;
