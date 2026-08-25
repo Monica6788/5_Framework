@@ -12,9 +12,9 @@ import com.kh.community.board.model.dto.BoardImageDTO;
 import com.kh.community.board.model.dto.BoardListResult;
 import com.kh.community.board.model.dto.BoardSearchCondition;
 import com.kh.community.board.model.mapper.BoardMapper;
+import com.kh.community.common.dto.PageInfo;
 import com.kh.community.common.util.FileUploadUtil;
 import com.kh.community.common.util.SavedFile;
-import com.kh.community.member.model.dto.PageInfo;
 
 import lombok.RequiredArgsConstructor;
 

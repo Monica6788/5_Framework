@@ -2,7 +2,7 @@ package com.kh.community.board.model.dto;
 
 import java.util.List;
 
-import com.kh.community.member.model.dto.PageInfo;
+import com.kh.community.common.dto.PageInfo;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
